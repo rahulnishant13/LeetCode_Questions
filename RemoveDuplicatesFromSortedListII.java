@@ -1,6 +1,4 @@
-package LeetCode_60_questions_to_solve;
-
-import java.net.InetSocketAddress;
+package LeetCode_Questions;
 
 public class RemoveDuplicatesFromSortedListII {
     public static void main(String[] args) {

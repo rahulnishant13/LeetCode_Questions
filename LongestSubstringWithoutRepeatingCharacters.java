@@ -1,6 +1,5 @@
-package LeetCode_60_questions_to_solve;
+package LeetCode_Questions;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 

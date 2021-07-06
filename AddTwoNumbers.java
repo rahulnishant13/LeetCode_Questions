@@ -1,4 +1,4 @@
-package LeetCode_60_questions_to_solve;
+package LeetCode_Questions;
 
 /**
  * Input
