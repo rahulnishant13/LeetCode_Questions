@@ -10,7 +10,7 @@ public class GenerateParentheses {
 
     }
 
-//    iterative way
+
 //    private static List<String> generateParenthesis(int n) {
 //        if (n == 1){
 //            return new ArrayList<String>(Arrays.asList("()"));
@@ -31,18 +31,19 @@ public class GenerateParentheses {
 //        return new ArrayList<>(set);
 //    }
 
-//    using recursion
     private static List<String> generateParenthesis(int n) {
         if (n == 1){
             return new ArrayList<String>(Arrays.asList("()"));
         }
         List<String> list = generateParenthesis(n-1);
-        Set<String> set = new HashSet<>();
-        for (String st: list) {
-            for (int i = -1; i < st.length(); i++) {
-                set.add(st.substring(0, i+1) + "()" + st.substring(i+1, st.length()));
+        Set<String> set = new HashSet<String>();
+
+        for(String st : list){
+            for (int charIndex = 0; charIndex < st.length(); charIndex++){
+                set.add(st.substring(0, charIndex+1) + "()" + st.substring(charIndex+1, st.length()));
             }
         }
-        return new ArrayList<>(set);
+
+        return  new ArrayList<String>(set);
     }
 }
