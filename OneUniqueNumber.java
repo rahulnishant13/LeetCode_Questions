@@ -1,6 +1,6 @@
 package LeetCode_Questions;
 
-public class SingleNumber {
+public class OneUniqueNumber {
     public static void main(String[] args) {
         int [] nums = {2,2,1};
         System.out.println(singleNumber(nums));
