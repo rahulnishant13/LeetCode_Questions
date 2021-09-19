@@ -4,8 +4,8 @@ import java.util.Stack;
 
 public class LongestValidParentheses {
     public static void main(String[] args) {
-        System.out.println(longestValidParentheses("(()()"));
-        System.out.println(longestValidParenthesesStack("(()))"));
+        System.out.println(longestValidParentheses(")("));
+        System.out.println(longestValidParenthesesStack(")("));
     }
 
     private static int longestValidParentheses(String s) {
@@ -20,8 +20,12 @@ public class LongestValidParentheses {
             if(open == close){
                 max = Math.max(max, open+close);
             }
+            else if(close > open ){
+                open = close = 0;
+            }
         }
 
+        open = close =0;
         for (int i = s.length()-1; i >= 0; i--) {
             if(s.charAt(i) == '(')
                 open++;
@@ -30,6 +34,9 @@ public class LongestValidParentheses {
 
             if(open == close){
                 max = Math.max(max, open+close);
+            }
+            else if(open > close ){
+                open = close = 0;
             }
         }
 
