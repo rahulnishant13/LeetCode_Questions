@@ -30,6 +30,38 @@ public class BinaryTreeLevelOrderTraversal {
 
         return result;
     }
+
+    private static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root != null) {
+            queue.add(root);
+        }
+        List<List<Integer>> result = new LinkedList<List<Integer>>();
+        int depth =0;
+
+        while (!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> data = new LinkedList<>();
+            for(int i=0; i<size; i++){
+                TreeNode tn = queue.poll();
+                if(depth%2 == 0) {
+                    data.add(tn.val);
+                } else {
+                    data.add(0, tn.val);
+                }
+                if(tn.left != null){
+                    queue.add(tn.left);
+                }
+                if(tn.right != null){
+                    queue.add(tn.right);
+                }
+            }
+            result.add(data);
+            depth++;
+        }
+
+        return result;
+    }
 }
 
 class TreeNode {
