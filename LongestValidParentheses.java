@@ -49,18 +49,16 @@ public class LongestValidParentheses {
         int max = 0;
         index.add(-1);
 
-
-        for (int i = 0; i < s.length(); i++) {
-            if(s.charAt(i) == '(') {
+        for(int i=0; i<s.length(); i++){
+            if(s.charAt(i) == '('){
                 stack.add('(');
                 index.add(i);
-            }
-            else {
+            } else {
                 if(!stack.isEmpty() && stack.peek() == '('){
-                    stack.pop();
                     index.pop();
-                    max = Math.max(max, i - index.peek());
-                }else {
+                    stack.pop();
+                    max = Math.max(max, (i - index.peek()));
+                } else {
                     index.add(i);
                 }
             }
