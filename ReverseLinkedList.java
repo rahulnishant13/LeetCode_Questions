@@ -2,7 +2,7 @@ package LeetCode_Questions;
 
 public class ReverseLinkedList {
 
-        private static class ListNode {
+    private static class ListNode {
         int val;
         ListNode next;
         ListNode() {}
@@ -27,11 +27,17 @@ public class ReverseLinkedList {
 
         System.out.println();
 
-        head = reverse(head);
+//        head = reverse(head);
+//        while (head != null){
+//            System.out.print(head.val + " ");
+//            head = head.next;
+//        }
 
-        while (head != null){
-            System.out.print(head.val + " ");
-            head = head.next;
+
+        reverseRecursion(head);
+        while (rev != null){
+            System.out.print(rev.val + " ");
+            rev = rev.next;
         }
     }
 
@@ -44,7 +50,22 @@ public class ReverseLinkedList {
                 temp.next = curr;
                 curr = temp;
             }
-
             return curr;
+    }
+
+//    1 3
+//    2 2
+//    3 1
+
+    static ListNode rev = null;
+    private static void reverseRecursion(ListNode node) {
+        if(node.next == null){
+            rev = node;
+            return;
+        }
+        reverseRecursion(node.next);
+        ListNode temp = node.next;
+        node.next = null;
+        temp.next = node;
     }
 }
