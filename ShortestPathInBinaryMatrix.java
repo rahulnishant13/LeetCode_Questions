@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class ShortestPathInBinaryMatrix {
     public static void main(String[] args) {
-        int [][] grid = {{0, 0, 0, 0},{1, 1, 1, 0},{0, 0, 0, 0}};
+        int [][] grid = {{0, 0, 0, 0},{1, 1, 1, 0},{0, 0, 0, 1}};
 
         System.out.println(shortestPathBinaryMatrix(grid));
     }
