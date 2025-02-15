@@ -1,5 +1,6 @@
 package LeetCode_Questions;
 
+// https://leetcode.com/problems/group-anagrams/
 
 import javafx.util.Pair;
 
@@ -39,4 +40,34 @@ public class GroupAnagrams {
 
         return result;
     }
+}
+
+// ========================================================== sol 2 ============
+
+class GroupAnagrams {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> mapWord = new HashMap<>();
+
+        for(String st : strs){
+            char [] ch = st.toCharArray();
+            Arrays.sort(ch);
+            String word = new String(ch);
+
+            if(!mapWord.containsKey(word)){
+                mapWord.put(word, new ArrayList<>());
+            }
+            List<String> temp = mapWord.get(word);
+            temp.add(st);
+        }
+
+        List<List<String>> result = new ArrayList<>();
+
+        for(var data : mapWord.values()){
+            result.add(data);
+        }
+
+
+        return result;
+    }
+
 }
