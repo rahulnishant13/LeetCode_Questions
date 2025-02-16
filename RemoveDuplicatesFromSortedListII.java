@@ -1,5 +1,46 @@
 package LeetCode_Questions;
 
+// https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/description/
+
+// =============================================================================================
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode current = head, next = head.next, prev = null;
+        boolean flag = false;
+
+        while(current != null && next != null){
+            int val = current.val;
+            while(next != null && next.val == val){
+                next = next.next;
+                flag = true;
+            }
+            if(flag){
+                flag = false;
+                if(current == head) {
+                    head = next;
+                } else {
+                    prev.next = next;
+                }
+                if(next != null && next.next != null){
+                    current = next;
+                    next = current.next;
+                }
+            } else {
+                prev = current;
+                current = current.next;
+                next = current.next;
+            }
+        }
+
+        return head;
+    }
+}
+
+// ============================================================================================================================
+
 public class RemoveDuplicatesFromSortedListII {
     public static void main(String[] args) {
         //[1,2,3,3,4,4,5]
