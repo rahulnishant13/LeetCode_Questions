@@ -1,34 +1,20 @@
 package LeetCode_Questions;
 
-public class MinimumSizeSubarraySum {
-    public static void main(String[] args) {
-        int target = 11;
-        int [] nums = new int[]{1,2,3,4,5};
-        System.out.println(minSubArrayLen(target, nums));
-    }
+// https://leetcode.com/problems/minimum-size-subarray-sum/description/
 
-    private static int minSubArrayLen(int target, int[] nums) {
-        int sum = 0, count = 0;
-        boolean baba = true;
-        int min = Integer.MAX_VALUE;
-        for (int i = 0, k = 0; i < nums.length || k < nums.length;) {
-            if (target > sum && i < nums.length){
-                sum += nums[i];
-                i++;
-                count++;
-            }
-            else if (target == sum && baba){
-                baba = false;
-                min = Math.min(min, count);
-            }
-            else if (k < nums.length) {
-                baba = true;
-                sum -= nums[k];
-                k++;
-                count--;
+class MinimumSizeSubarraySum {
+    public int minSubArrayLen(int target, int[] nums) {
+        int count = Integer.MAX_VALUE, sum = 0, j=0;
+
+        for(int i=0; i<nums.length; i++){
+            sum = sum + nums[i];
+            while(target <= sum){
+                count = Math.min(count, i-j+1);
+                sum = sum - nums[j];
+                j++;
             }
         }
 
-        return min == Integer.MAX_VALUE ? 0 : min;
+        return count == Integer.MAX_VALUE ? 0 : count;
     }
 }
