@@ -1,8 +1,56 @@
+// https://leetcode.com/problems/binary-tree-level-order-traversal/description/
+
 package LeetCode_Questions;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class BinaryTreeLevelOrderTraversal {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null) {
+            return result;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> list = new ArrayList<>();
+            while(size > 0){
+                TreeNode tn = queue.poll();
+                if(tn != null){
+                    list.add(tn.val);
+                    queue.add(tn.left);
+                    queue.add(tn.right);
+                }
+                size--;
+            }
+            if(!list.isEmpty()) result.add(list);
+        }
+        return result;
+    }
+}
+
+// ======================================== SOL 2==================================================================
 
 public class BinaryTreeLevelOrderTraversal {
     private static List<List<Integer>> levelOrder(TreeNode root) {
