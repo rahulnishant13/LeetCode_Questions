@@ -1,32 +1,32 @@
-// https://leetcode.com/problems/longest-mountain-in-array/description/
-
-
+// https://leetcode.com/problems/longest-mountain-in-array/
+// 845. Longest Mountain in Array
 class LongestMountaininArray {
     public int longestMountain(int[] arr) {
-        int maxVal = 0;
-        if (arr.length < 3) return 0;
+        int result = 0;
+        int n = arr.length;
 
-        for(int i=0; i<arr.length; i++){
+        for(int i=0; i<n; i++) {
             int j = i;
-            int count = 1;
+            int count = 0;
             boolean flag = false;
 
-            while(j<arr.length-1 && (arr[j] < arr[j+1])){
+            while(j<n-1 && arr[j] < arr[j+1]){
                 count++;
                 j++;
             }
-            while(i!=j && j<arr.length-1 && (arr[j] > arr[j+1])){
+            while(i!=j && j<n-1 && arr[j] > arr[j+1]){
                 count++;
                 j++;
                 flag = true;
             }
-
-            if(i!=j && flag && count>2){
-                maxVal = Math.max(maxVal, count);
+ 
+            if(i!=j && flag) {
+                result = Math.max(result, count+1);
                 j--;
             }
-            i=j;
+            i = j;
         }
-        return maxVal;
+
+        return result;
     }
 }
