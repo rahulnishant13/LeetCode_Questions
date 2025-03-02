@@ -5,12 +5,14 @@ class StringCompression {
     public int compress(char[] chars) {
         char prevChar = chars[0];
         int count = 1;
-        StringBuilder sb = new StringBuilder();
+        int k = 0;
         for(int i=1; i<chars.length; i++){
             if(prevChar != chars[i]) {
-                sb.append(prevChar);
+                chars[k++] = prevChar;
                 if(count > 1){
-                    sb.append(count);
+                    for (char digit : Integer.toString(count).toCharArray()) {
+                        chars[k++] = digit;
+                    }
                 }
                 count = 1;
                 prevChar = chars[i];
@@ -19,24 +21,19 @@ class StringCompression {
             }
         }
 
-        sb.append(prevChar);
+        chars[k++] = prevChar;
         if(count > 1){
-            sb.append(count);
+            for (char digit : Integer.toString(count).toCharArray()) {
+                chars[k++] = digit;
+            }
         }
 
-        int i =0;
-        for(char ch : sb.toString().toCharArray()) {
-            chars[i] = ch;
-            i++;
-        }
-
-        System.out.println(sb.toString());
-
-        return sb.length();
+        return k;
     }
-}// https://leetcode.com/problems/string-compression/description/
+}
 
-class Solution {
+// ================================================================================================
+class StringCompression {
     public int compress(char[] chars) {
         char prevChar = chars[0];
         int count = 1;
