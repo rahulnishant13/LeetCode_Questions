@@ -2,6 +2,7 @@
 // https://leetcode.com/problems/first-missing-positive/
 
 class FirstMissingPositive {
+    // marking correct index to negative
     public int firstMissingPositive(int[] nums) {
         int len = nums.length;
         for(int i=0; i<len; i++) {
@@ -23,6 +24,29 @@ class FirstMissingPositive {
 
         for(int i=1; i<len+1; i++) {
             if(nums[i-1] >= 0) {
+                return i;
+            }
+        }
+
+        return len+1;
+    }
+
+    // using cyclic sort
+    public int firstMissingPositiveUsingCyclicSort(int[] nums) {
+        int len = nums.length;
+        for(int i=0; i<len;) {
+            int val = nums[i] - 1;
+            if(nums[i]>0 && nums[i]<=len && nums[i] != nums[val]) {
+                int temp = nums[val];
+                nums[val] = nums[i];
+                nums[i] = temp;
+            } else {
+                i++;
+            }
+        }
+
+        for(int i=1; i<len+1; i++) {
+            if(nums[i-1] != i){
                 return i;
             }
         }
