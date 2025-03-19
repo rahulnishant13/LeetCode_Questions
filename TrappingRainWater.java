@@ -2,6 +2,33 @@ package LeetCode_Questions;
 
 import java.util.Arrays;
 
+// 42. Trapping Rain Water
+// https://leetcode.com/problems/trapping-rain-water/
+
+class TrappingRainWater {
+    public int trap(int[] height) {
+        int lh = 0, rh = 0;
+        int l = 0, r = height.length-1;
+        int result = 0;
+
+        while(l<r) {
+            lh = Math.max(lh, height[l]);
+            rh = Math.max(rh, height[r]);
+
+            if(lh < rh) {
+                result += lh - height[l];
+                l++;
+            } else {
+                result += rh - height[r];
+                r--;
+            }
+        }
+
+        return result;
+
+    }
+}
+
 public class TrappingRainWater {
     public static void main(String[] args) {
         int [] height = {0,1,0,2,1,0,1,3,2,1,2,1};
