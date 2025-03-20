@@ -1,118 +1,82 @@
-import java.util.HashMap;
-import java.util.Map;
+// 146. LRU Cache
+// https://leetcode.com/problems/lru-cache/description/
 
-public class LRUCache {
+class LRUCache {
+    int key;
+    int value;
+    Node next;
+    Node prev;
 
-    static class Node{
-        int data;
-        Node next;
-        Node prev;
+    Node(int key, int value) {
+        this.key = key;
+        this.value = value;
+        this.next = null;
+        this.prev = null;
+    }
+}
 
-        Node(int d){
-            data = d;
-            next = null;
-            prev = null;
+class LRUCache {
+    Map<Integer, Node> lruMap = new HashMap<>();;
+    int capacity;
+    Node head = new Node(-1, -1);
+    Node tail = new Node(-1, -1);
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.head.next = tail;
+        this.tail.prev = head;
+    }
+    
+    public int get(int key) {
+        if(lruMap.containsKey(key)) {
+            Node node = lruMap.get(key);
+            remove(node);
+            insert(node);
+            return node.value;
         }
+
+        return -1;
     }
 
-    private static Node head, tail;
-    private static Map<Integer, Node> cacheMap = new HashMap<>();
-    private static int cacheSize = 4;
+    private void insert(Node data){
+        // Node temp = head.next;
+        
+        data.next = head.next;
+        data.prev = head;
 
-    public static void main(String[] args) {
-        head = new Node(0);
-        tail = new Node(0);
-
-        head.next = tail;
-        tail.prev = head;
-
-        put(3);
-        printList();
-        put(2);
-        printList();
-        put(1);
-        printList();
-        getFroamCache(2);
-        printList();
-        put(2);
-        printList();
-        put(4);
-        printList();
-        put(6);
-        printList();
-        put(7);
-        printList();
-        getFroamCache(2);
-        printList();
-        put(6);
-        printList();
-        put(4);
-        printList();
+        head.next.prev = data;
+        head.next = data;
     }
 
-
-    private static void printList(){
-        Node node =  head;
-        node = node.next;
-        while (node != tail){
-            System.out.print(" " + node.data);
-            node = node.next;
-        }
-        System.out.println();
+    private void remove(Node data){
+        data.prev.next = data.next;
+        data.next.prev = data.prev;
     }
-
-    private static void put(int key){
-        if(cacheMap.containsKey(key)){
-            Node result = cacheMap.get(key);
-            moveToTop(result);
-//            System.out.println("data inserted : " + result.data);
+    
+    public void put(int key, int value) {
+        Node node = lruMap.get(key);
+        if(node != null) {
+            node.value = value;
+            lruMap.put(key, node);
+            remove(node);
+            insert(node);
         } else {
-            if(cacheMap.size() < cacheSize){
-                Node node = insertAtHead(key);
-                cacheMap.put(key, node);
-//                System.out.println("data inserted : " + node.data);
-            } else {
-                removeAtLast();
-                Node node = insertAtHead(key);
-                cacheMap.put(key, node);
-//                System.out.println("data inserted : " + node.data);
+            Node data = new Node(key, value);
+            lruMap.put(key, data);
+            insert(data);
+
+            if(lruMap.size() > capacity) {
+                Node last = tail.prev;
+                remove(last);
+                lruMap.remove(last.key);
             }
         }
     }
-
-    private static int getFroamCache(int key){
-        if(cacheMap.containsKey(key)){
-            Node result = cacheMap.get(key);
-            moveToTop(result);
-            return result.data;
-        } else {
-            return -1;
-        }
-    }
-
-    private static Node insertAtHead(int d){
-        Node node =  new Node(d);
-        node.next = head.next;
-        node.prev = head;
-        head.next.prev = node;
-        head.next = node;
-        return node;
-    }
-
-    private static void removeAtLast(){
-        Node toDelete = tail.prev;
-        toDelete.prev.next = tail;
-        tail.prev = toDelete.prev;
-    }
-
-    private static void moveToTop(Node node){
-//        System.out.println(" check  " + head.data);
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
-        node.prev = head;
-    }
 }
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
